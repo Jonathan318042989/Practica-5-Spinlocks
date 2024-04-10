@@ -24,8 +24,8 @@ public class ALock implements Lock {
         int slot = tail.getAndIncrement() % size;
         mySlotIndex.set(slot);
         while (!flag[slot]) {
+            Thread.yield();
         }
-        ;
     }
 
     @Override
