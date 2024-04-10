@@ -28,6 +28,7 @@ public class MCSLock implements Lock {
             qnode.locked = true;
             pred.next = qnode;
             while (qnode.locked) {
+                Thread.yield();
             }
         }
     }
@@ -39,6 +40,7 @@ public class MCSLock implements Lock {
             if (tail.compareAndSet(qnode, null))
                 return;
             while (qnode.next == null) {
+                Thread.yield();
             }
         }
         qnode.next.locked = false;
